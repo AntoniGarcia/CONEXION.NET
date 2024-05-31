@@ -1,0 +1,66 @@
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw1
+sw1(config)#enable password 1234
+sw1(config)#enable secret 1234
+sw1(config)#service password-encryption
+
+sw1(config)#line console 0
+sw1(config-line)#password console
+sw1(config-line)#login
+sw1(config-line)#exit
+
+sw1#configure terminal
+sw1(config)#interface vlan1
+sw1(config-if)#ip address 192.168.0.62 255.255.255.192
+sw1(config-if)#description "toAdmin"
+sw1(config-if)#no shutdown
+sw1(config-if)#exit
+
+sw1(config)#ip default-gateway 192.168.0.1
+sw1(config)#ip domain-name itsoeh.edu
+
+sw1(config)#username admin password 1234
+sw1(config)#crypto key generate rsa
+[1024]
+sw1(config)#line vty 0 15
+sw1(config-line)#transport input ssh
+sw1(config-line)#login local
+sw1(config-line)#exit
+
+sw1#configure terminal
+sw1(config)#banner motd "solo personal autorizado"
+-------------------------------------------------------
+
+Switch>enable
+Switch#configure terminal
+Switch(config)#hostname sw2
+sw1(config)#enable password 1234
+sw1(config)#enable secret 1234
+sw1(config)#service password-encryption
+
+sw1(config)#line console 0
+sw1(config-line)#password console
+sw1(config-line)#login
+sw1(config-line)#exit
+
+sw1#configure terminal
+sw1(config)#interface vlan1
+sw1(config-if)#ip address 192.168.0.92 255.255.255.224
+sw1(config-if)#description "toAdmin"
+sw1(config-if)#no shutdown
+sw1(config-if)#exit
+
+sw1(config)#ip default-gateway 192.168.0.65
+sw1(config)#ip domain-name itsoeh.edu
+
+sw1(config)#username admin password 1234
+sw1(config)#crypto key generate rsa
+[1024]
+sw1(config)#line vty 0 15
+sw1(config-line)#transport input ssh
+sw1(config-line)#login local
+sw1(config-line)#exit
+
+sw1#configure terminal
+sw1(config)#banner motd "solo personal autorizado"

@@ -1,0 +1,65 @@
+Router>enable
+Router#configure terminal
+Router(config)#hostname R1
+R1(config)#enable password 1234
+R1(config)#enable secret 1234
+R1(config)#service password-encryption
+
+R1(config)#line console 0
+R1(config-line)#password console
+R1(config-line)#login
+R1(config-line)#exit
+
+R1#configure terminal
+R1(config)#interface g0/0
+R1(config-if)#ip address 10.0.0.5 255.255.255.252
+R1(config-if)#description "toR1"
+R1(config-if)#no shutdown
+R1(config-if)#exit
+
+R1#configure terminal
+R1(config)#interface g0/1
+R1(config-if)#ip address 192.168.0.1 255.255.255.192
+R1(config-if)#description "toLAN"
+R1(config-if)#no shutdown
+R1(config-if)#exit
+
+R1(config)#ip route 192.168.0.64 255.255.255.224 10.0.0.6
+------------------------------------------------------
+Router>enable
+Router#configure terminal
+Router(config)#hostname R2
+R2(config)#enable password 1234
+R2(config)#enable secret 1234
+R2(config)#service password-encryption
+
+R2(config)#line console 0
+R2(config-line)#password console
+R2(config-line)#login
+R2(config-line)#exit
+
+R2#configure terminal
+R2(config)#interface g0/0
+R2(config-if)#ip address 10.0.0.6 255.255.255.252
+R2(config-if)#description "toR2"
+R2(config-if)#no shutdown
+R2(config-if)#exit
+
+R2#configure terminal
+R2(config)#interface g0/1
+R2(config-if)#ip address 192.168.0.65 255.255.255.224
+R2(config-if)#description "toLAN"
+R2(config-if)#no shutdown
+R2(config-if)#exit
+
+R2(config)#ip route 192.168.0.0 255.255.255.192 10.0.0.5
+
+
+
+
+show ip interface brief | include up 
+
+show running-config | section (line con 0, line vty, enable, Gigabiteethernet 0/0/0, banner vlan, ip default-gateway)
+
+show ip route | include ( S , L , C)
+
